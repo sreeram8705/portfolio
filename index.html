@@ -2,91 +2,381 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sreeram Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <header>
-    <div class="logo">Sreeram</div>
-    <nav>
-      <ul>
-        <li><a href="#" onclick="showSection('home')">Home</a></li>
-        <li><a href="#" onclick="showSection('about')">About</a></li>
-        <li><a href="#" onclick="showSection('skills')">Skills</a></li>
-        <li><a href="#" onclick="showSection('education')">Education</a></li>
-        <li><a href="#" onclick="showSection('projects')">Projects</a></li>
-      </ul>
-    </nav>
-  </header>
+    html {
+      scroll-behavior: smooth;
+    }
 
-  <!-- HOME -->
-  <section id="home" class="content-section active">
-    <div class="hero">
-      <div class="hero-text">
-        <h1>Hi, I'm <span class="highlight">Sreeram</span></h1>
-        <h3>ECE Student & ML Enthusiast</h3>
-        <p>Welcome to my portfolio</p>
-      </div>
-      <div class="hero-img">
-        <img src="your-bitmoji.png" alt="Avatar" />
-      </div>
-    </div>
-  </section>
+    body {
+      font-family: Arial, sans-serif;
+      color: white;
+      background-color: black;
+      transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
+    }
 
-  <!-- ABOUT -->
-  <section id="about" class="content-section hidden">
-    <h2>About Me</h2>
-    <p>Student at VIT Chennai, passionate about technology and innovation.</p>
-  </section>
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.5s ease;
+    }
 
-  <!-- SKILLS -->
-  <section id="skills" class="content-section hidden">
-    <h2>Skills</h2>
-    <ul>
-      <li>Python</li>
-      <li>Machine Learning</li>
-      <li>HTML, CSS, JS</li>
-      <li>GitHub, DevOps Basics</li>
-    </ul>
-  </section>
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
 
-  <!-- EDUCATION -->
-  <section id="education" class="content-section hidden">
-    <h2>Education</h2>
-    <p>Secondary schooling at Dr.KKR GOWTHAM INTERNATIONAL SCHOOL</p>
-    <p>B.Tech in ECE, VIT Chennai</p>
-  </section>
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: color 0.4s;
+    }
 
-  <!-- PROJECTS -->
-  <section id="projects" class="content-section hidden">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Accident Detection Using ML</h3>
-      <p>Developed a machine learning model to detect accidents and send notifications.</p>
-    </div>
-    <!-- Add more projects here -->
-  </section>
+    .light-mode nav a {
+      color: black;
+    }
 
-  <footer>
-    <p>© 2025 Sreeram Sathvik Panchumarthi. All rights reserved.</p>
-  </footer>
+    section {
+      min-height: 100vh;
+      padding: 4rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
 
-  <script>
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll(".content-section");
-      sections.forEach(section => section.classList.remove("active"));
-      const selected = document.getElementById(sectionId);
-      if (selected) {
-        selected.classList.add("active");
+    section.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #home {
+      background-color: black;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #home img {
+      width: 320px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: none;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 1rem;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #00aaff;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #00aaff;
+    }
+
+    h3 {
+      font-size: 1.5em;
+      color: #00aaff;
+    }
+
+    .light-mode h1, .light-mode h2, .light-mode h3 {
+      color: black;
+    }
+
+    .light-mode body,
+    .light-mode p,
+    .light-mode li,
+    .light-mode ul {
+      color: black;
+    }
+
+    p, ul, li {
+      text-align: left;
+    }
+
+    #skills, #education, #projects, #contact {
+      background: black;
+      transition: background-color 0.8s ease-in-out;
+    }
+
+    .light-mode #home,
+    .light-mode #skills,
+    .light-mode #education,
+    .light-mode #projects,
+    .light-mode #contact {
+      background: white;
+      color: black;
+    }
+
+    .project {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .project img {
+      width: 120px;
+      height: auto;
+      background: transparent;
+      transition: transform 0.3s;
+    }
+
+    .project img:hover {
+      transform: scale(1.05);
+    }
+
+    .project-text {
+      flex: 1;
+    }
+
+    .certificates {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .certificates img {
+      width: 110px;
+      height: auto;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .certificates img:hover {
+      transform: scale(1.05);
+    }
+
+    #contact .contact-links {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    #contact img {
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #contact img:hover {
+      transform: scale(1.1);
+    }
+
+    @media screen and (max-width: 768px) {
+      section {
+        align-items: center;
+        text-align: center;
+      }
+
+      #home {
+        flex-direction: column;
+      }
+
+      .project {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #home img {
+        margin-top: 1rem;
       }
     }
 
-    window.onload = () => {
-      showSection('home');
-    };
-  </script>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
 
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: background-color 0.6s ease;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: transform 0.6s ease;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #00aaff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#home">🏠</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <label class="switch">
+      <input type="checkbox" id="modeSwitch">
+      <span class="slider"></span>
+    </label>
+  </nav>
+
+  <section id="home">
+    <div>
+      <h1>HELLO THERE, THIS IS</h1>
+      <h2>SREERAM SATHVIK PANCHUMARTHI</h2>
+      <p>I'm Sreeram Sathvik Panchumarthi, a passionate technologist from India with a strong background in Electronics and Communication Engineering. With a growing interest in Artificial Intelligence and Machine Learning, I’ve been bridging the gap between hardware-level understanding and intelligent software systems. I love solving real-world problems through innovation—whether it's using embedded systems for accident detection or leveraging Python for sentiment analysis. My journey has been driven by curiosity, continuous learning, and a desire to contribute meaningfully to the tech-driven future.</p>
+    </div>
+    <img src="images/main.jpg" alt="Sreeram" />
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <p>To become a proficient Machine Learning Engineer, I have developed a strong command over:</p>
+    <ul>
+      <li>Python Programming (NumPy, Pandas, scikit-learn, OpenCV)</li>
+      <li>Data Analysis & Visualization (Matplotlib, Seaborn, Power BI)</li>
+      <li>Machine Learning & NLP (Supervised/Unsupervised Models, Sentiment Analysis)</li>
+      <li>Computer Vision (Vehicle Detection, Image Processing)</li>
+      <li>Embedded Systems (Arduino, Accelerometers, GPS Integration)</li>
+      <li>Cloud Services (Google Cloud Platform)</li>
+      <li>Version Control & Collaboration (Git, GitHub)</li>
+      <li>Tools & IDEs (Jupyter, VS Code, Arduino IDE)</li>
+      <li>Soft Skills (Problem Solving, Team Collaboration, Communication)</li>
+    </ul>
+    <p>These skills enable me to tackle complex challenges in AI and ML, ensuring I can contribute effectively to innovative projects.</p>
+  </section>
+
+<section id="education">
+  <h2>Education</h2>
+  <p>
+    Bachelor's in Electronics and Communication Engineering – My academic foundation in electronics has enabled me to explore intersections between hardware systems and intelligent algorithms.
+  </p>
+
+  <div style="margin-top: 3rem;">
+    <h3>Certifications</h3>
+    <div class="certificates">
+      <a href="https://drive.google.com/file/d/1Xsrl9JzPJkYtZLp9hEYw_hkS44-RzPzZ/view" target="_blank">
+        <img src="images/cert1.png" alt="Google Cloud Career Foundations" />
+      </a>
+      <a href="https://www.credential.net/d412da09-4ca4-4824-b6ad-d0695649a650#acc.LIVmqjXo" target="_blank">
+        <img src="images/cert2.png" alt="Google Cloud Digital Leader" />
+      </a>
+      <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/Accenture%20North%20America/hzmoNKtzvAzXsEqx8_Accenture%20North%20America_7ichYDrCLN3b8KxoF_1704015784750_completion_certificate.pdf" target="_blank">
+        <img src="images/cert3.png" alt="Accenture Data Analytics" />
+      </a>
+    </div>
+    <ul style="margin-top: 0.5rem;">
+
+      <li><strong>Google Cloud Career Foundations:</strong> Gained foundational cloud knowledge including cloud computing, infrastructure, APIs, and deployment. Built strong fundamentals for a cloud-first approach to AI development.</li>
+      <li><strong>Google Cloud Digital Leader:</strong> Certified in transforming business with cloud technology. Understood GCP services, data processing workflows, and responsible AI principles in the enterprise context.</li>
+      <li><strong>Accenture Data Analytics & Visualization:</strong> Completed a virtual internship focused on business data analytics using Excel, Power BI, and data storytelling techniques to drive business insights and decision-making.</li>
+    </ul>
+  </div>
+</section>
+
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project">
+      <div class="project-text">
+        <h3>1. Accident Detection and Notification System</h3>
+        <p>This project uses sensors and GPS modules on embedded devices (Arduino + Python) to detect vehicle crashes and automatically notify emergency services with live location.</p>
+      </div>
+      <img src="images/accident.png" alt="Accident Detection" />
+    </div>
+    <div class="project">
+      <div class="project-text">
+        <h3>2. Sentiment Analysis for Comments</h3>
+        <p>Developed a Natural Language Processing pipeline that classifies comments into positive or negative using Python, scikit-learn, and trained Naive Bayes classifiers...</p>
+      </div>
+      <img src="images/sentiment.png" alt="Sentiment Analysis" />
+    </div>
+    <div class="project">
+      <div class="project-text">
+        <h3>3. Vehicle Count and Traffic Signal Automation</h3>
+        <p>Designed a computer vision-based system to count vehicles using OpenCV and dynamically change traffic signals based on density to optimize road traffic flow.</p>
+      </div>
+      <img src="images/traffic.png" alt="Traffic Signal System" />
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Click below to connect:</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/sreeram-panchumarthi/" target="_blank"><img src="images/linkedin.png" alt="LinkedIn" /></a>
+      <a href="https://github.com/sreeram8705" target="_blank"><img src="images/github.png" alt="GitHub" /></a>
+    </div>
+  </section>
+
+  <script>
+    const modeSwitch = document.getElementById('modeSwitch');
+    modeSwitch.addEventListener('change', () => {
+      document.body.classList.toggle('light-mode');
+    });
+
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
 </body>
 </html>
