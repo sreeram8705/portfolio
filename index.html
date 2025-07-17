@@ -1,56 +1,92 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
+  <title>Sreeram Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header>
-    <h1>Your Name</h1>
+    <div class="logo">Sreeram</div>
     <nav>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#" onclick="showSection('home')">Home</a></li>
+        <li><a href="#" onclick="showSection('about')">About</a></li>
+        <li><a href="#" onclick="showSection('skills')">Skills</a></li>
+        <li><a href="#" onclick="showSection('education')">Education</a></li>
+        <li><a href="#" onclick="showSection('projects')">Projects</a></li>
       </ul>
     </nav>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Short bio here...</p>
-  </section>
-
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>Python</li>
-      <li>HTML/CSS/JavaScript</li>
-      <li>Machine Learning</li>
-    </ul>
-  </section>
-
-  <section id="education">
-    <h2>Education</h2>
-    <p>B.Tech in ECE, XYZ University (7.0 CGPA)</p>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Social Media Post Analysis</h3>
-      <p>Analyzed sentiment of posts using Python & NLP libraries</p>
+  <!-- HOME -->
+  <section id="home" class="content-section active">
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Hi, I'm <span class="highlight">Sreeram</span></h1>
+        <h3>ECE Student & ML Enthusiast</h3>
+        <p>Welcome to my portfolio</p>
+      </div>
+      <div class="hero-img">
+        <img src="your-bitmoji.png" alt="Avatar" />
+      </div>
     </div>
   </section>
 
+  <!-- ABOUT -->
+  <section id="about" class="content-section hidden">
+    <h2>About Me</h2>
+    <p>Student at VIT Chennai, passionate about technology and innovation.</p>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="content-section hidden">
+    <h2>Skills</h2>
+    <ul>
+      <li>Python</li>
+      <li>Machine Learning</li>
+      <li>HTML, CSS, JS</li>
+      <li>GitHub, DevOps Basics</li>
+    </ul>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="content-section hidden">
+    <h2>Education</h2>
+    <p>Secondary schooling at Dr.KKR GOWTHAM INTERNATIONAL SCHOOL</p>
+    <p>B.Tech in ECE, VIT Chennai</p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="content-section hidden">
+    <h2>Projects</h2>
+    <div class="project">
+      <h3>Accident Detection Using ML</h3>
+      <p>Developed a machine learning model to detect accidents and send notifications.</p>
+    </div>
+    <!-- Add more projects here -->
+  </section>
+
   <footer>
-    <p>© 2025 Your Name. All rights reserved.</p>
+    <p>© 2025 Sreeram Sathvik Panchumarthi. All rights reserved.</p>
   </footer>
+
+  <script>
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll(".content-section");
+      sections.forEach(section => section.classList.remove("active"));
+      const selected = document.getElementById(sectionId);
+      if (selected) {
+        selected.classList.add("active");
+      }
+    }
+
+    window.onload = () => {
+      showSection('home');
+    };
+  </script>
 
 </body>
 </html>
