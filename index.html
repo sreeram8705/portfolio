@@ -79,16 +79,24 @@
     }
 
     #home img {
-      width: 320px;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: none;
+      width: 200px;
+      height: auto;
+      position: absolute;
+      top: 80px;
+      right: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
     h1, h2, h3 {
       margin-bottom: 1rem;
       font-family: 'Trebuchet MS', sans-serif;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    h1.fade-in, h2.fade-in, h3.fade-in {
+      opacity: 1;
     }
 
     h1 {
@@ -175,10 +183,16 @@
       transform: scale(1.05);
     }
 
+    #contact {
+      align-items: center;
+      text-align: center;
+    }
+
     #contact .contact-links {
       display: flex;
       gap: 2rem;
       margin-top: 1rem;
+      justify-content: center;
     }
 
     #contact img {
@@ -208,52 +222,21 @@
 
       #home img {
         margin-top: 1rem;
+        position: static;
       }
     }
 
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 24px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
+    .theme-toggle {
+      font-size: 1.5rem;
       cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: background-color 0.6s ease;
-      border-radius: 24px;
+      background: none;
+      border: none;
+      color: white;
+      transition: color 0.3s;
     }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: transform 0.6s ease;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider {
-      background-color: #00aaff;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(26px);
+    .light-mode .theme-toggle {
+      color: black;
     }
   </style>
 </head>
@@ -266,13 +249,10 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <label class="switch">
-      <input type="checkbox" id="modeSwitch">
-      <span class="slider"></span>
-    </label>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
   </nav>
 
-  <section id="home">
+<section id="home">
     <div>
       <h1>HELLO THERE, THIS IS</h1>
       <h2>SREERAM SATHVIK PANCHUMARTHI</h2>
@@ -352,19 +332,54 @@
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Click below to connect:</p>
-    <div class="contact-links">
-      <a href="https://www.linkedin.com/in/sreeram-panchumarthi/" target="_blank"><img src="images/linkedin.png" alt="LinkedIn" /></a>
-      <a href="https://github.com/sreeram8705" target="_blank"><img src="images/github.png" alt="GitHub" /></a>
-    </div>
-  </section>
+<section id="contact">
+  <h2>Contact</h2>
+  <p>I'd love to hear from you! Send me a message below:</p>
+
+  <form 
+    action="https://formspree.io/f/manbnppw" 
+    method="POST"
+    style="background-color: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 0 10px rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; gap: 10px; width: fit-content; margin: 1rem auto;"
+  >
+    <input 
+      type="email" 
+      name="email" 
+      placeholder="Your Email (required)" 
+      required 
+      style="padding: 0.5rem; width: 300px; border-radius: 10px; border: none; outline: none;"
+    />
+    
+    <textarea 
+      name="message" 
+      placeholder="Your Message" 
+      rows="5" 
+      required 
+      style="padding: 0.5rem; width: 300px; border-radius: 10px; border: none; outline: none;"
+    ></textarea>
+
+    <button 
+      type="submit" 
+      style="padding: 0.5rem 1rem; font-weight: bold; border-radius: 10px; border: none; cursor: pointer;"
+    >Send Message</button>
+  </form>
+
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/sreeram-panchumarthi/" target="_blank">
+      <img src="images/linkedin.png" alt="LinkedIn" />
+    </a>
+    <a href="https://github.com/sreeram8705" target="_blank">
+      <img src="images/github.png" alt="GitHub" />
+    </a>
+  </div>
+</section>
+
+
 
   <script>
-    const modeSwitch = document.getElementById('modeSwitch');
-    modeSwitch.addEventListener('change', () => {
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
+      themeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
     });
 
     const sections = document.querySelectorAll("section");
@@ -372,6 +387,9 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
+          entry.target.querySelectorAll('h1, h2, h3').forEach(h => h.classList.add('fade-in'));
+        } else {
+          entry.target.querySelectorAll('h1, h2, h3').forEach(h => h.classList.remove('fade-in'));
         }
       });
     }, { threshold: 0.1 });
